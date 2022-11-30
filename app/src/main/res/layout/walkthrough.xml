@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/action" />
+
+    <LinearLayout
+        android:id="@+id/action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="48dp">
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsColor="@color/grayLevel1"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="12dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="2.5"
+            app:progressMode="true"
+            app:selectedDotColor="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:paddingLeft="32dp"
+                android:paddingTop="12dp"
+                android:paddingRight="32dp"
+                android:paddingBottom="12dp"
+                android:visibility="visible"
+                fancy:fb_defaultColor="@color/grayLevel3"
+                fancy:fb_focusColor="@color/grayLevel5"
+                fancy:fb_radius="8dp"
+                fancy:fb_text="Kembali"
+                fancy:fb_textColor="@color/grayLevel5"
+                fancy:fb_textSize="16dp" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:paddingLeft="32dp"
+                android:paddingTop="12dp"
+                android:paddingRight="32dp"
+                android:paddingBottom="12dp"
+                fancy:fb_defaultColor="@color/primary"
+                fancy:fb_focusColor="@color/primaryDark"
+                fancy:fb_radius="8dp"
+                fancy:fb_text="Selanjutnya"
+                fancy:fb_textColor="@color/white"
+                fancy:fb_textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

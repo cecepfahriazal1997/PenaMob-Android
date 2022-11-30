@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#00C4C2</color>
+    <color name="primaryDark">#0090B4</color>
+    <color name="primarySoft">#5CB0FF</color>
+    <color name="secondary">#00509D</color>
+    <color name="secondaryDark">#003F88</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#F34949</color>
+    <color name="redLight">#FF7171</color>
+    <color name="yellowLight">#FFF6CB</color>
+    <color name="green">#02B467</color>
+    <color name="grayLevel1">#F5F5F5</color>
+    <color name="grayLevel2">#F2F2F2</color>
+    <color name="grayLevel3">#E1E1E1</color>
+    <color name="grayLevel4">#CCCCCC</color>
+    <color name="grayLevel5">#A5A5A5</color>
+    <color name="grayLevel6">#7F7F7F</color>
+    <color name="grayLevel7">#595959</color>
+    <color name="yellowDark">#FDC500</color>
+    <color name="yellow">#FFD500</color>
+</resources>

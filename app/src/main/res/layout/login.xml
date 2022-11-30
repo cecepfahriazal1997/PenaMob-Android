@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="42dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@raw/barlow_medium"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
+            android:text="Silahkan masukan username dan password kamu."
+            android:textColor="@color/grayLevel5"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/form_control"
+            android:drawableLeft="@drawable/person"
+            android:drawablePadding="16dp"
+            android:drawableTint="@color/grayLevel5"
+            android:fontFamily="@raw/barlow_medium"
+            android:hint="Masukan username disini ..."
+            android:maxLines="1"
+            android:singleLine="true"
+            android:paddingVertical="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grayLevel5"
+            android:textSize="14dp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:errorEnabled="false"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/grayLevel4">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/form_control"
+                android:drawableStart="@drawable/lock_outline"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/grayLevel5"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan password disini ..."
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textCursorDrawable="@null"
+                android:textSize="14dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/action"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="16dp"
+            app:fb_defaultColor="@color/primary"
+            app:fb_focusColor="@color/primaryDark"
+            app:fb_radius="8dp"
+            app:fb_text="Login"
+            app:fb_textColor="@color/white"
+            app:fb_textSize="16dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
