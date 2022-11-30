@@ -37,6 +37,7 @@
         <activity
             android:name=".activity.Dashboard"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.Quiz"
