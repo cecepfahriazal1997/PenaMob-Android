@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
-import com.nita.penamob.adapter.MenuAdapter;
-import com.nita.penamob.model.MenuModel;
+import com.nita.penamob.adapter.GridMenuAdapter;
+import com.nita.penamob.model.GridMenuModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ import java.util.List;
 public class Home extends Fragment implements View.OnClickListener {
     private Dashboard parent;
     private RecyclerView listMenu;
-    private MenuAdapter adapter;
-    private List<MenuModel> lists = new ArrayList<>();
+    private GridMenuAdapter adapter;
+    private List<GridMenuModel> lists = new ArrayList<>();
 
     public Home() {
     }
@@ -57,12 +57,12 @@ public class Home extends Fragment implements View.OnClickListener {
         lists.clear();
 
         for (int i = 0; i < title.length; i++) {
-            MenuModel item = new MenuModel(title[i], String.valueOf((int) (Math.random() * 10 + i)));
+            GridMenuModel item = new GridMenuModel(title[i], String.valueOf((int) (Math.random() * 10 + i)));
             lists.add(item);
         }
 
         GridLayoutManager layoutManager = new GridLayoutManager(parent.getApplicationContext(), 2);
-        adapter = new MenuAdapter(parent.getApplicationContext(), lists, R.layout.grid_menu, new MenuAdapter.OnClickListener() {
+        adapter = new GridMenuAdapter(parent.getApplicationContext(), lists, R.layout.grid_menu, new GridMenuAdapter.OnClickListener() {
             @Override
             public void onClickListener(int position) {
                 parent.selectPage(position + 1);

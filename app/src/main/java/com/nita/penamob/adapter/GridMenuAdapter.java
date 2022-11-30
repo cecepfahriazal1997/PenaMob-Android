@@ -7,22 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
-import com.nita.penamob.model.MenuModel;
+import com.nita.penamob.model.GridMenuModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
+public class GridMenuAdapter extends RecyclerView.Adapter<GridMenuAdapter.ViewHolder> {
     private final Context context;
-    private List<MenuModel> listData = new ArrayList<>();
+    private List<GridMenuModel> listData = new ArrayList<>();
     private final OnClickListener onClickListener;
     private int layoutId;
 
-    public MenuAdapter(Context context, List<MenuModel> listData, int layoutId, OnClickListener onClickListener) {
+    public GridMenuAdapter(Context context, List<GridMenuModel> listData, int layoutId, OnClickListener onClickListener) {
         this.context = context;
         this.listData = listData;
         this.layoutId = layoutId;
@@ -38,7 +37,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MenuModel item = listData.get(position);
+        GridMenuModel item = listData.get(position);
         holder.title.setText(item.getTitle());
         holder.total.setText(item.getTotal());
     }

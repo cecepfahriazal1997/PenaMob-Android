@@ -21,7 +21,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="@raw/barlow_bold"
-            android:text="Hasil"
+            android:text="Laporan"
             android:textColor="@color/white"
             android:textSize="16dp" />
 
@@ -35,7 +35,7 @@
             android:layout_marginBottom="72dp"
             android:fontFamily="@raw/barlow_medium"
             android:lineSpacingMultiplier="1.3"
-            android:text="Hasil yang didapatkan ketika assessment telah dilakukan."
+            android:text="Laporan hasil belajarmu disekolah akan tampil disini."
             android:textColor="@color/white"
             android:textSize="14dp" />
 

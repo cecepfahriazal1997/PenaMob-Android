@@ -1,12 +1,12 @@
 package com.nita.penamob.model;
 
-public class MenuModel {
+public class GridMenuModel {
     private String title, total;
 
-    public MenuModel() {
+    public GridMenuModel() {
     }
 
-    public MenuModel(String title, String total) {
+    public GridMenuModel(String title, String total) {
         this.title = title;
         this.total = total;
     }

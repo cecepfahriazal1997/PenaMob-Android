@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
 import com.nita.penamob.activity.Login;
-import com.nita.penamob.adapter.MenuAdapter;
-import com.nita.penamob.model.MenuModel;
+import com.nita.penamob.adapter.ProfileMenuAdapter;
+import com.nita.penamob.model.ProfileMenuModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,8 @@ import mehdi.sakout.fancybuttons.FancyButton;
 public class Account extends Fragment implements View.OnClickListener {
     private Dashboard parent;
     private RecyclerView listMenu;
-    private MenuAdapter adapter;
-    private List<MenuModel> lists = new ArrayList<>();
+    private ProfileMenuAdapter adapter;
+    private List<ProfileMenuModel> lists = new ArrayList<>();
     private FancyButton logout;
 
     public Account() {
@@ -54,35 +54,35 @@ public class Account extends Fragment implements View.OnClickListener {
     }
 
     private void setMenu() {
-//        String title[] = {
-//                "Ubah Profile",
-//                "Tentang Aplikasi",
-//                "Ubah Password",
-//                "Term & Condition",
-//        };
-//        int icon[] = {
-//                R.drawable.person_fill,
-//                R.drawable.info,
-//                R.drawable.lock,
-//                R.drawable.security,
-//        };
-//
-//        lists.clear();
-//
-//        for (int i = 0; i < title.length; i++) {
-//            MenuModel item = new MenuModel(title[i], null, icon[i]);
-//            lists.add(item);
-//        }
-//
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(parent.getApplicationContext(), RecyclerView.VERTICAL, false);
-//        adapter = new MenuAdapter(parent.getApplicationContext(), lists, R.layout.item_account, new MenuAdapter.OnClickListener() {
-//            @Override
-//            public void onClickListener(int position) {
-//            }
-//        });
-//
-//        listMenu.setLayoutManager(layoutManager);
-//        listMenu.setAdapter(adapter);
+        String title[] = {
+                "Ubah Profile",
+                "Tentang Aplikasi",
+                "Ubah Password",
+                "Term & Condition",
+        };
+        int icon[] = {
+                R.drawable.person_fill,
+                R.drawable.info,
+                R.drawable.lock,
+                R.drawable.security,
+        };
+
+        lists.clear();
+
+        for (int i = 0; i < title.length; i++) {
+            ProfileMenuModel item = new ProfileMenuModel(icon[i], title[i]);
+            lists.add(item);
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(parent.getApplicationContext(), RecyclerView.VERTICAL, false);
+        adapter = new ProfileMenuAdapter(parent.getApplicationContext(), lists, R.layout.item_account, new ProfileMenuAdapter.OnClickListener() {
+            @Override
+            public void onClickListener(int position) {
+            }
+        });
+
+        listMenu.setLayoutManager(layoutManager);
+        listMenu.setAdapter(adapter);
     }
 
     @Override

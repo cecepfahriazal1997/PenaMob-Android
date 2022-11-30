@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
-import com.nita.penamob.adapter.MenuAdapter;
-import com.nita.penamob.model.MenuModel;
+import com.nita.penamob.adapter.GridMenuAdapter;
+import com.nita.penamob.model.GridMenuModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import java.util.List;
 public class Result extends Fragment implements View.OnClickListener {
     private Dashboard parent;
     private RecyclerView listMenu;
-    private MenuAdapter adapter;
-    private List<MenuModel> lists = new ArrayList<>();
+    private GridMenuAdapter adapter;
+    private List<GridMenuModel> lists = new ArrayList<>();
 
     public Result() {
     }
@@ -33,7 +33,7 @@ public class Result extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_result, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_report, container, false);
 
         findView(rootView);
 
