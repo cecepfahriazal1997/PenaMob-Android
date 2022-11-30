@@ -32,6 +32,6 @@
         android:fontFamily="@raw/barlow_light"
         android:layout_marginTop="4dp"
         android:text="Tersedia beberapa referensi buku yang kamu butuhkan disini."
-        android:textColor="@color/grayLevel5"
+        android:textColor="@color/grayLevel6"
         android:textSize="14sp" />
 </RelativeLayout>
