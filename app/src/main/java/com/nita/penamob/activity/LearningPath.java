@@ -28,10 +28,18 @@ public class LearningPath extends BaseController implements View.OnClickListener
 
         findView();
         fetchData();
+        init();
+    }
+
+    private void init() {
+        title.setText("Daftar Pembelajaran");
+        back.setOnClickListener(this::onClick);
     }
 
     private void findView() {
         list = findViewById(R.id.list);
+        title = findViewById(R.id.title);
+        back = findViewById(R.id.back);
     }
 
     private void fetchData() {
@@ -44,7 +52,8 @@ public class LearningPath extends BaseController implements View.OnClickListener
         String lessons[] = {
                 "Pembelajaran Pertama",
                 "Pembelajaran Kedua",
-                "Pembelajaran Ketiga",
+                "Tugas",
+                "Kuis"
         };
 
         String typeLessons[] = {
@@ -104,6 +113,9 @@ public class LearningPath extends BaseController implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.back:
+                finish();
+                break;
         }
     }
 }

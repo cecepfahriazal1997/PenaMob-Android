@@ -14,12 +14,15 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
+import com.nita.penamob.activity.LearningDetail;
 import com.nita.penamob.helper.GeneralHelper;
 import com.nita.penamob.model.LearningPathModel;
 import com.nita.penamob.model.LessonsModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapter.ViewHolder> {
     private final Context context;
@@ -94,13 +97,19 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                     expired.setVisibility(View.GONE);
                 }
 
+                Map<String, String> params = new HashMap<>();
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        params.clear();
                         switch (row.getType().toLowerCase()) {
                             case "materi":
+                                params.put("type", "materi");
+                                helper.startIntent(LearningDetail.class, false, params);
                                 break;
                             case "tugas":
+                                params.put("type", "tugas");
+                                helper.startIntent(LearningDetail.class, false, params);
                                 break;
                             case "kuis":
                                 break;
