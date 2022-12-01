@@ -112,6 +112,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                                 helper.startIntent(LearningDetail.class, false, params);
                                 break;
                             case "kuis":
+                                title.getText().toString().substring(100);
                                 break;
                         }
                     }

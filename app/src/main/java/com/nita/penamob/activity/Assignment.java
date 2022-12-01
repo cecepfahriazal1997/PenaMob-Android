@@ -8,35 +8,31 @@ import com.nita.penamob.R;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class LearningDetail extends BaseController implements View.OnClickListener {
-    private String type = "";
-    private RelativeLayout buttonTask;
+import mehdi.sakout.fancybuttons.FancyButton;
+
+public class Assignment extends BaseController implements View.OnClickListener {
+    private FancyButton see, chooseFile, submit;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.learning_detail);
+        setContentView(R.layout.assignment);
 
         findView();
         init();
     }
 
     private void findView() {
-        buttonTask = findViewById(R.id.button_task);
         title = findViewById(R.id.title);
         back = findViewById(R.id.back);
+        see = findViewById(R.id.see);
+        chooseFile = findViewById(R.id.choose_file);
+        submit = findViewById(R.id.submit);
     }
 
     private void init() {
-        type = getIntent().getStringExtra("type");
-
-        if (type.equals("tugas")) {
-            buttonTask.setVisibility(View.VISIBLE);
-            buttonTask.setOnClickListener(this::onClick);
-        }
-
-        title.setText(StringUtils.capitalize(type));
         back.setOnClickListener(this::onClick);
+        submit.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -45,8 +41,9 @@ public class LearningDetail extends BaseController implements View.OnClickListen
             case R.id.back:
                 finish();
                 break;
-            case R.id.button_task:
-                helper.startIntent(Assignment.class, false, null);
+            case R.id.submit:
+                helper.showToast("Tugas berhasil dikirim!", 0);
+                finish();
                 break;
         }
     }

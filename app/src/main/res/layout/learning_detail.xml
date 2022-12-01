@@ -132,7 +132,7 @@
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/arrow_task"
             android:fontFamily="@raw/barlow_medium"
-            android:text="Lihat Referensi Pada Materi Ini"
+            android:text="Jawab Tugas"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
