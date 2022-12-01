@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
+import com.nita.penamob.activity.LearningPath;
 import com.nita.penamob.adapter.CoursesAdapter;
 import com.nita.penamob.model.CoursesModel;
 
@@ -83,6 +84,7 @@ public class Courses extends Fragment implements View.OnClickListener {
         adapter = new CoursesAdapter(parent.getApplicationContext(), lists, R.layout.item_courses, new CoursesAdapter.OnClickListener() {
             @Override
             public void onClickListener(int position) {
+                parent.functionHelper.startIntent(LearningPath.class, false, null);
             }
         });
 

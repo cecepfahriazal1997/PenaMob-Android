@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/form_card"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/lesson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@raw/barlow_medium"
+            android:text="Pembelajaran Pertama"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lesson"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@raw/barlow_medium"
+            android:text="Materi"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lesson"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/type"
+            android:fontFamily="@raw/barlow_medium"
+            android:text="File"
+            android:textColor="@color/grayLevel5"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/expired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/format"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@raw/barlow_medium"
+            android:text="Kedaluarsa : Aug 11, 2022 s.d Aug 24, 2022"
+            android:textColor="@color/grayLevel5"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</LinearLayout>
