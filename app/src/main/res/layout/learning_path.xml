@@ -19,7 +19,7 @@
         android:fontFamily="@raw/barlow_medium"
         android:text="Daftar pembelajaran pada kelas"
         android:textColor="@color/black"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/courses"
@@ -29,7 +29,7 @@
         android:fontFamily="@raw/barlow_bold"
         android:text="XI D1 Kebidanan"
         android:textColor="@color/primary"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"

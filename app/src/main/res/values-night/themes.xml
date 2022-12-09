@@ -15,7 +15,7 @@
         <item name="android:textColorHint">@color/grayLevel4</item>
     </style>
     <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
