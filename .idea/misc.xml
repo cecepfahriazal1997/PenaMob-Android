@@ -5,10 +5,18 @@
       <map>
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable-anydpi/back.xml" value="0.1935" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/badge_danger.xml" value="0.1935" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/badge_light.xml" value="0.3395" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/badge_warning.xml" value="0.3395" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/form_card.xml" value="0.3395" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/form_card_primary.xml" value="0.3395" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/form_radio.xml" value="0.3395" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/drawable/label_danger.xml" value="0.3395" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/assignment.xml" value="0.3625" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/card_lesson_remedial.xml" value="0.271875" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/card_lessons_must_be_pass.xml" value="0.33" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/card_library.xml" value="0.3614583333333333" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/card_quiz_time.xml" value="0.2975630611372381" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/card_score_quiz.xml" value="0.3625" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/dashboard.xml" value="0.18541666666666667" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/fragment_account.xml" value="0.33" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/fragment_courses.xml" value="0.3625" />
@@ -18,15 +26,20 @@
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_account.xml" value="0.67" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_banner.xml" value="0.18541666666666667" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_courses.xml" value="0.3614583333333333" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_lesson_.xml" value="0.3614583333333333" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_lesson_remedial.xml" value="0.25" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_menu.xml" value="0.18541666666666667" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_menu_list.xml" value="0.67" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_quiz.xml" value="0.3625" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_quiz_option.xml" value="0.2975630611372381" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_theory.xml" value="0.3625" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/item_topic.xml" value="0.3625" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/learning_detail.xml" value="0.3625" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/learning_path.xml" value="0.3625" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/login.xml" value="0.25" />
-        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/quiz.xml" value="0.5" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/quiz.xml" value="0.33" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/quiz_loading.xml" value="0.25" />
+        <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/quiz_overview.xml" value="0.33" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/recap.xml" value="0.18541666666666667" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/result.xml" value="0.18541666666666667" />
         <entry key="..\:/Project Android/PenaMob/app/src/main/res/layout/splashscreen.xml" value="0.33" />

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
 import com.nita.penamob.activity.LearningDetail;
+import com.nita.penamob.activity.QuizOverview;
 import com.nita.penamob.helper.GeneralHelper;
 import com.nita.penamob.model.LearningPathModel;
 import com.nita.penamob.model.LessonsModel;
@@ -79,7 +80,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
             }
 
             holder.contentLessons.removeAllViews();
-            for (LessonsModel row: lesson) {
+            for (LessonsModel row : lesson) {
                 View viewLessons = this.helper.inflateView(R.layout.item_theory);
 
                 LinearLayout content = viewLessons.findViewById(R.id.content);
@@ -112,7 +113,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                                 helper.startIntent(LearningDetail.class, false, params);
                                 break;
                             case "kuis":
-                                title.getText().toString().substring(100);
+                                helper.startIntent(QuizOverview.class, false, null);
                                 break;
                         }
                     }
