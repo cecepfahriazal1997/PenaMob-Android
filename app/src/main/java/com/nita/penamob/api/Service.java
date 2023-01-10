@@ -38,7 +38,7 @@ public class Service {
     public String courses = baseUrl + "student/courses/list";
     public String coursesDetail = baseUrl + "student/courses/detail?id=";
     public String learningPath = baseUrl + "student/lessons/list?id=";
-    public String lessonDetail = baseUrl + "student/lessons/detail";
+    public String lessonDetail = baseUrl + "student/lessons/detail?id=";
     public String saveAssignment = baseUrl + "student/assignment/save";
     public String quizOverview = baseUrl + "student/quiz/overview";
     public String quizStart = baseUrl + "student/quiz/start";

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grayLevel1"
@@ -12,11 +13,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/content_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/badge_success"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/check"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kamu sudah mengerjakan tugas ini!"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,6 +52,7 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/lesson"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@raw/barlow_bold"
@@ -34,16 +60,26 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
+            <WebView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:ignore="WebViewLayout"
+                android:visibility="gone"/>
+
             <TextView
+                android:id="@+id/description_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@raw/barlow_light"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
             <LinearLayout
+                android:id="@+id/content_expired"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -60,6 +96,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/expired"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -71,6 +108,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/content_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -87,6 +125,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -96,9 +135,43 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/content_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/form_control"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@raw/barlow_medium"
+                    android:text="Nilai"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/grayLevel6"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@raw/barlow_bold"
+                    android:text="100"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/reference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -125,7 +198,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/button_task"
+            android:id="@+id/button_assignment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

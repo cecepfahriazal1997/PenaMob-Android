@@ -70,7 +70,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
         }
 
         // set list lessons
-        if (totalLesson > 0) {
+        if (totalLesson > 0 && !item.isLocked()) {
             if (item.isOpened()) {
                 holder.contentLessons.setVisibility(View.VISIBLE);
                 holder.arrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arrow_up));
@@ -88,11 +88,28 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                 TextView type = viewLessons.findViewById(R.id.type);
                 TextView format = viewLessons.findViewById(R.id.format);
                 TextView expired = viewLessons.findViewById(R.id.expired);
+                ImageView locked = viewLessons.findViewById(R.id.locked);
 
                 title.setText(row.getLessons());
                 type.setText(row.getType());
                 format.setText(row.getFormat());
                 expired.setText(row.getExpiredDate());
+
+                if (row.isLocked()) {
+                    locked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.lock));
+                    locked.setImageTintList(ContextCompat.getColorStateList(context, R.color.grayLevel4));
+                    title.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
+                    type.setVisibility(View.GONE);
+                    format.setVisibility(View.GONE);
+                    expired.setVisibility(View.GONE);
+                } else {
+                    type.setVisibility(View.VISIBLE);
+                    format.setVisibility(View.VISIBLE);
+                    expired.setVisibility(View.VISIBLE);
+                    title.setTextColor(ContextCompat.getColor(context, R.color.black));
+                    locked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arrow_right));
+                    locked.setImageTintList(ContextCompat.getColorStateList(context, R.color.black));
+                }
 
                 if (row.getExpiredDate().isEmpty()) {
                     expired.setVisibility(View.GONE);
@@ -103,18 +120,24 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                     @Override
                     public void onClick(View v) {
                         params.clear();
-                        switch (row.getType().toLowerCase()) {
-                            case "materi":
-                                params.put("type", "materi");
-                                helper.startIntent(LearningDetail.class, false, params);
-                                break;
-                            case "tugas":
-                                params.put("type", "tugas");
-                                helper.startIntent(LearningDetail.class, false, params);
-                                break;
-                            case "kuis":
-                                helper.startIntent(QuizOverview.class, false, null);
-                                break;
+                        params.put("id", row.getId());
+
+                        if (!row.isLocked()) {
+                            switch (row.getType().toLowerCase()) {
+                                case "lesson":
+                                    params.put("type", "materi");
+                                    helper.startIntent(LearningDetail.class, false, params);
+                                    break;
+                                case "assignment":
+                                    params.put("type", "tugas");
+                                    helper.startIntent(LearningDetail.class, false, params);
+                                    break;
+                                case "quiz":
+                                    helper.startIntent(QuizOverview.class, false, null);
+                                    break;
+                            }
+                        } else {
+                            helper.showToast("Materi ini masih terkunci, silahkan buka materi sebelumnya!", 0);
                         }
                     }
                 });
