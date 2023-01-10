@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -54,5 +55,15 @@
             android:text="Kedaluarsa : Aug 11, 2022 s.d Aug 24, 2022"
             android:textColor="@color/grayLevel5"
             android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/locked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/lock"
+            app:tint="@color/grayLevel4" />
+
     </RelativeLayout>
 </LinearLayout>

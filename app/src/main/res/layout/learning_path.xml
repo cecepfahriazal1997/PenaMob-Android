@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="82dp"
         android:fontFamily="@raw/barlow_bold"
-        android:text="XI D1 Kebidanan"
         android:textColor="@color/primary"
         android:textSize="14sp" />
 
