@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.util.Log;
 
+import com.nita.penamob.activity.Login;
 import com.nita.penamob.helper.GeneralHelper;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpRequest;
@@ -28,12 +29,21 @@ public class Service {
     private final Activity activity;
     private final GeneralHelper functionHelper;
     private final ProgressDialog pDialog;
-    private String baseUrl = "https://api.nitalestari.com/mobile/";
+//    private String baseUrl = "https://api.nitalestari.com/mobile/";
+    private String baseUrl = "https://6752-2001-448a-3041-8364-1517-b8b0-9537-5a4d.ap.ngrok.io/mobile/";
     public String login = baseUrl + "auth/signin";
     public String quiz = baseUrl + "quiz/retrieve?";
-    public String quizSave = baseUrl + "quiz/save";
-    public String quizResult = baseUrl + "quiz/result";
     public String theory = baseUrl + "theory/retrieve";
+    public String dashboard = baseUrl + "student/dashboard";
+    public String courses = baseUrl + "student/courses/list";
+    public String coursesDetail = baseUrl + "student/courses/detail?id=";
+    public String learningPath = baseUrl + "student/lessons/list?id=";
+    public String lessonDetail = baseUrl + "student/lessons/detail";
+    public String saveAssignment = baseUrl + "student/assignment/save";
+    public String quizOverview = baseUrl + "student/quiz/overview";
+    public String quizStart = baseUrl + "student/quiz/start";
+    public String quizSave = baseUrl + "student/quiz/save";
+    public String quizStop = baseUrl + "student/quiz/stop";
 
     public String bodyResponse = "data";
 
@@ -136,9 +146,15 @@ public class Service {
                                         }
                                         listener.getHashMap(hash);
                                     } else {
-                                        hash.put("status", "false");
-                                        hash.put("message", result.getHeaders().code() + " : " + result.getHeaders().message());
-                                        listener.getHashMap(hash);
+                                        if (result.getHeaders().code() == 401) { // logout when auth is failed
+                                            functionHelper.clearSession();
+                                            functionHelper.startIntent(Login.class, true, null);
+                                            functionHelper.showToast("Sesi login telah habis !", 0);
+                                        } else {
+                                            hash.put("status", "false");
+                                            hash.put("message", result.getHeaders().code() + " : " + result.getHeaders().message());
+                                            listener.getHashMap(hash);
+                                        }
                                     }
                                 } else {
                                     hash.put("status", "false");

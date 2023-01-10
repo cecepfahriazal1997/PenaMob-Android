@@ -48,6 +48,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
         if (item.getImage() != null && !item.getImage().isEmpty()) {
             Glide.with(context)
                     .load(item.getImage())
+                    .placeholder(R.drawable.placeholder)
                     .into(holder.cover);
         }
     }

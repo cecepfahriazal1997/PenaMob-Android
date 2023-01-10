@@ -14,10 +14,18 @@ import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
 import com.nita.penamob.activity.LearningPath;
 import com.nita.penamob.adapter.CoursesAdapter;
+import com.nita.penamob.api.Service;
 import com.nita.penamob.model.CoursesModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import kotlin.reflect.KParameter;
 
 public class Courses extends Fragment implements View.OnClickListener {
     private Dashboard parent;
@@ -25,6 +33,7 @@ public class Courses extends Fragment implements View.OnClickListener {
     private CoursesAdapter adapter;
     private List<CoursesModel> lists = new ArrayList<>();
     private EditText keyword;
+    protected Map<String, String> param = new HashMap<>();
 
     public Courses() {
     }
@@ -51,50 +60,66 @@ public class Courses extends Fragment implements View.OnClickListener {
     }
 
     private void fetchData() {
-        String title[] = {
-                "Kelas D1 Kebidanan",
-                "Kelas D2 Kebidanan",
-                "Kelas S1 Keperawatan",
-                "Kelas S2 Keperawatan"
-        };
+        try {
+            lists.clear();
+            parent.clientApiService.apiService(parent.clientApiService.courses, null, null, true, new Service.hashMapListener() {
+                @Override
+                public String getHashMap(Map<String, String> hashMap) {
+                    try {
+                        if (hashMap.get("status").equals("true")) {
+                            JSONArray data = new JSONArray(hashMap.get("data"));
 
-        String category[] = {
-                "Matematika",
-                "Bahasa Indonesia",
-                "Bahasa Inggris",
-                "Fisika"
-        };
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject detail = data.getJSONObject(i);
 
-        String teacher[] = {
-                "Ahmad Subarjo",
-                "Bambang Sudiono",
-                "Cintya Maharani",
-                "Deny Sumar"
-        };
+                                CoursesModel item = new CoursesModel(detail.getString("id"),
+                                        detail.getString("category"),
+                                        detail.getString("name"),
+                                        detail.getString("cover"),
+                                        detail.getString("participant"),
+                                        detail.getString("teacher_name"));
+                                lists.add(item);
+                            }
+                        }
 
-        lists.clear();
+                        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                        adapter = new CoursesAdapter(parent.getApplicationContext(), lists, R.layout.item_courses, new CoursesAdapter.OnClickListener() {
+                            @Override
+                            public void onClickListener(int position) {
+                                param.clear();
+                                param.put("id", lists.get(position).getId());
+                                parent.functionHelper.startIntent(LearningPath.class, false, param);
+                            }
+                        });
 
-        for (int i = 0; i < title.length; i++) {
-            String totParticipant = String.valueOf((int) (Math.random() * 10 + i));
-            CoursesModel item = new CoursesModel(String.valueOf(i), category[i], title[i], null, totParticipant, teacher[i]);
-            lists.add(item);
+                        listMenu.setLayoutManager(layoutManager);
+                        listMenu.setAdapter(adapter);
+                    } catch (Exception er) {
+                        er.printStackTrace();
+                    }
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        adapter = new CoursesAdapter(parent.getApplicationContext(), lists, R.layout.item_courses, new CoursesAdapter.OnClickListener() {
-            @Override
-            public void onClickListener(int position) {
-                parent.functionHelper.startIntent(LearningPath.class, false, null);
-            }
-        });
-
-        listMenu.setLayoutManager(layoutManager);
-        listMenu.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(true);
+
+        if (this.isVisible()) {
+            // we check that the fragment is becoming visible
+            if (isFragmentVisible_) {
+                this.fetchData();
+            }
         }
     }
 }
