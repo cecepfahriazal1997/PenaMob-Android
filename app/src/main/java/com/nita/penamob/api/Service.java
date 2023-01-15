@@ -30,7 +30,7 @@ public class Service {
     private final GeneralHelper functionHelper;
     private final ProgressDialog pDialog;
 //    private String baseUrl = "https://api.nitalestari.com/mobile/";
-    private String baseUrl = "https://6752-2001-448a-3041-8364-1517-b8b0-9537-5a4d.ap.ngrok.io/mobile/";
+    private String baseUrl = "https://bd45-2001-448a-304e-66af-716a-5ee4-27d3-6c47.ap.ngrok.io/mobile/";
     public String login = baseUrl + "auth/signin";
     public String quiz = baseUrl + "quiz/retrieve?";
     public String theory = baseUrl + "theory/retrieve";

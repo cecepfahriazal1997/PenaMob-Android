@@ -3,9 +3,6 @@ package com.nita.penamob.helper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -16,7 +13,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -28,6 +24,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -45,13 +42,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ReturnMode;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.nita.penamob.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,9 +65,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.TimeZone;
-import java.util.Map;
 
 public class GeneralHelper {
     private Activity activity;
@@ -171,9 +170,14 @@ public class GeneralHelper {
     }
 
     public void openUrlToBrowser(String url) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        activity.startActivity(i);
+        try {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            activity.startActivity(i);
+        } catch (Exception er) {
+            showToast("URL TIDAK VALID!", 0);
+            er.printStackTrace();
+        }
     }
 
     public void showToast(String message, int duration) {
@@ -300,6 +304,14 @@ public class GeneralHelper {
             @Override
             public void onPageFinished(final WebView view, final String url) {
                 showProgressDialog(pDialog, false);
+            }
+        });
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
             }
         });
 
@@ -662,25 +674,25 @@ public class GeneralHelper {
         ActivityCompat.requestPermissions(activity, permissions, code);
     }
 
-//    public void openFileChooser(Activity activity, int code, String[] permissions) {
-//        if (arePermissionsGranted(activity, permissions)) {
-//            ImagePicker.create(activity)
-//                    .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
-//                    .folderMode(true) // folder mode (false by default)
-//                    .toolbarFolderTitle("Folder") // folder selection title
-//                    .toolbarImageTitle("Pilih gambar") // image selection title
-//                    .toolbarArrowColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.grayLvlEight)) // Toolbar 'up' arrow color
-//                    .includeVideo(false) // Show video on image picker
-//                    .single() // single mode
-////                .multi() // multi mode (default mode)
-//                    .showCamera(true) // show camera or not (true by default)
-//                    .imageDirectory("Camera") // directory name for captured image  ("Camera" folder by default)
-//                    .enableLog(true) // disabling log
-//                    .start(); // start image picker activity with request code
-//        } else {
-//            requestPermissionsCompat(activity, code, permissions);
-//        }
-//    }
+    public void openFileChooser(Activity activity, int code, String[] permissions) {
+        if (arePermissionsGranted(activity, permissions)) {
+            ImagePicker.create(activity)
+                    .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
+                    .folderMode(true) // folder mode (false by default)
+                    .toolbarFolderTitle("Folder") // folder selection title
+                    .toolbarImageTitle("Pilih gambar") // image selection title
+                    .toolbarArrowColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.white)) // Toolbar 'up' arrow color
+                    .includeVideo(false) // Show video on image picker
+                    .single() // single mode
+//                .multi() // multi mode (default mode)
+                    .showCamera(true) // show camera or not (true by default)
+                    .imageDirectory("Camera") // directory name for captured image  ("Camera" folder by default)
+                    .enableLog(true) // disabling log
+                    .start(); // start image picker activity with request code
+        } else {
+            requestPermissionsCompat(activity, code, permissions);
+        }
+    }
 
     public Bitmap loadImageFromStorage(String path) {
         try {

@@ -1,5 +1,6 @@
 package com.nita.penamob.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -20,6 +21,11 @@ public class BaseController extends AppCompatActivity {
     protected Map<String, String> param = new HashMap<>();
     protected ImageButton back;
     protected TextView title;
+    String[] permissionImage = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

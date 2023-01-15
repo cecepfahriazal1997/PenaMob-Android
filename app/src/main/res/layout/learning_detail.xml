@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grayLevel1"
     android:orientation="vertical"
+    android:fillViewport="true"
     android:padding="32dp">
 
     <LinearLayout
@@ -63,9 +64,11 @@
             <WebView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="true"
                 tools:ignore="WebViewLayout"
+                android:descendantFocusability="blocksDescendants"
                 android:visibility="gone"/>
 
             <TextView

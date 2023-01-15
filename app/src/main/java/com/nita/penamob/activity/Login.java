@@ -48,6 +48,7 @@ public class Login extends BaseController implements View.OnClickListener {
                             JSONObject data = new JSONObject(hashMap.get("data"));
                             helper.startIntent(Dashboard.class, true, null);
                             helper.saveSession("key", data.getString("key"));
+                            helper.saveSession("name", data.getString("name"));
                         }
                     } catch (Exception er) {
                         er.printStackTrace();

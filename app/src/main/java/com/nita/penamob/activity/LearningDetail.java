@@ -18,11 +18,13 @@ import java.util.Map;
 public class LearningDetail extends BaseController implements View.OnClickListener {
     private String type = "";
     private String id = "";
+    private String titleLesson = "";
     private TextView titleLessons, expired, note, descriptionText, score;
     private WebView description;
     private LinearLayout contentExpired, contentNote, notification;
     private RelativeLayout reference, btnAssignment, contentScore;
     private String urlReference;
+    private boolean onPause = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class LearningDetail extends BaseController implements View.OnClickListen
                         if (hashMap.get("status").equals("true")) {
                             JSONObject detail = new JSONObject(hashMap.get("data"));
 
+                            titleLesson = detail.getString("name");
                             titleLessons.setText(detail.getString("name"));
 
                             String expiredDate = "";
@@ -105,7 +108,7 @@ public class LearningDetail extends BaseController implements View.OnClickListen
                                 description.setVisibility(View.VISIBLE);
                                 descriptionText.setVisibility(View.GONE);
 
-                                helper.formatIsText(pDialog, description, detail.getString("description"), "url");
+                                helper.formatIsText(pDialog, description, detail.getString("attachment"), "url");
                             }
 
 //                            IF TYPE LESSON IS ASSIGNMENT
@@ -117,6 +120,7 @@ public class LearningDetail extends BaseController implements View.OnClickListen
                                     if (!dataAssignment.getString("score").isEmpty() && dataAssignment.getString("score") != "null") {
                                         contentScore.setVisibility(View.VISIBLE);
                                         score.setText(dataAssignment.getString("score"));
+                                        btnAssignment.setVisibility(View.GONE);
                                     }
                                 }
                             }
@@ -141,11 +145,31 @@ public class LearningDetail extends BaseController implements View.OnClickListen
                 finish();
                 break;
             case R.id.button_assignment:
-                helper.startIntent(Assignment.class, false, null);
+                param.clear();
+                param.put("id", id);
+                param.put("title", titleLesson);
+                helper.startIntent(Assignment.class, false, param);
                 break;
             case R.id.reference:
                 helper.openUrlToBrowser(urlReference);
                 break;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        this.onPause = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (this.onPause) {
+            this.fetchData();
+            this.onPause = false;
         }
     }
 }

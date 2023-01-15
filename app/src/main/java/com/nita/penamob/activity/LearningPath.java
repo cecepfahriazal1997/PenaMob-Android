@@ -30,6 +30,8 @@ public class LearningPath extends BaseController implements View.OnClickListener
 
     private String coursesId = "";
 
+    private boolean onPause = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +149,23 @@ public class LearningPath extends BaseController implements View.OnClickListener
             case R.id.back:
                 finish();
                 break;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        this.onPause = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (this.onPause) {
+            this.fetchData();
+            this.onPause = false;
         }
     }
 }

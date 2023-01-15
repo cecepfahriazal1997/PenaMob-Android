@@ -26,6 +26,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private Dashboard parent;
     private RecyclerView listMenu;
     private GridMenuAdapter adapter;
+    private TextView name;
     private List<GridMenuModel> lists = new ArrayList<>();
 
     public Home() {
@@ -43,12 +44,18 @@ public class Home extends Fragment implements View.OnClickListener {
 
         findView(rootView);
         this.fetchData();
+        this.init();
 
         return rootView;
     }
 
     private void findView(View rootView) {
         listMenu = rootView.findViewById(R.id.list_menu);
+        name = rootView.findViewById(R.id.name);
+    }
+
+    private void init() {
+        name.setText(parent.functionHelper.getSession("name"));
     }
 
     private void fetchData() {
