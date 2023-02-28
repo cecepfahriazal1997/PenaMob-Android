@@ -134,7 +134,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                                     helper.startIntent(LearningDetail.class, false, params);
                                     break;
                                 case "quiz":
-                                    helper.startIntent(QuizOverview.class, false, null);
+                                    helper.startIntent(QuizOverview.class, false, params);
                                     break;
                             }
                         } else {

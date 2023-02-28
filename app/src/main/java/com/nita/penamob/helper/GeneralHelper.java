@@ -514,6 +514,20 @@ public class GeneralHelper {
         return result;
     }
 
+    public long dateToMilliSecond(String dateString) {
+        long milliSecond = 0;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = sdf.parse(dateString);
+            milliSecond = date.getTime();
+        } catch (Exception e) {
+            showToast("Convert date to millisecond failed", 0);
+            e.printStackTrace();
+        }
+
+        return milliSecond;
+    }
+
     public void saveSessionBatch(JSONObject data) {
         try {
             JSONArray keys = data.names();

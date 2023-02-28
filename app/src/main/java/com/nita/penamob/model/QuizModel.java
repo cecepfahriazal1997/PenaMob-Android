@@ -1,12 +1,21 @@
 package com.nita.penamob.model;
 
+import org.json.JSONArray;
+
 public class QuizModel {
-    private String id, number, section, category, percentage, question, answer;
-    private String option[] = {
-            "0", "0", "0", "0", "0"
-    };
+    private String id, number, question, answer, type;
+    private JSONArray option;
+    private boolean editAnswer;
 
     public QuizModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNumber() {
@@ -15,22 +24,6 @@ public class QuizModel {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
-    public String getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(String percentage) {
-        this.percentage = percentage;
     }
 
     public String getQuestion() {
@@ -49,39 +42,27 @@ public class QuizModel {
         this.answer = answer;
     }
 
-    public void setOption(int index, String value) {
-        this.option[index] = value;
+    public String getType() {
+        return type;
     }
 
-    public String getOption(int index) {
-        return this.option[index];
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public int countOption() {
-        return this.option.length;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String[] getOption() {
+    public JSONArray getOption() {
         return option;
     }
 
-    public void setOption(String[] option) {
+    public void setOption(JSONArray option) {
         this.option = option;
     }
 
-    public String getId() {
-        return id;
+    public boolean isEditAnswer() {
+        return editAnswer;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEditAnswer(boolean editAnswer) {
+        this.editAnswer = editAnswer;
     }
 }

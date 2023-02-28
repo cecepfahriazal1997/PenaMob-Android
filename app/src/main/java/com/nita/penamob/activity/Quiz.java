@@ -1,11 +1,14 @@
 package com.nita.penamob.activity;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,66 +30,46 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class Quiz extends BaseController implements View.OnClickListener {
     private List<QuizModel> lists = new ArrayList<>();
-    private TextView category, number, question;
-    private FancyButton numberQuestion, nextQuestion, prevQuestion;
-    private LinearLayout loading;
-    private RelativeLayout content;
+    private TextView number, question, questionUnFilled, totalQuestion, duration;
+    private FancyButton numberQuestion, nextQuestion, prevQuestion, finishQuiz;
+    private EditText yourAnswer;
+    private LinearLayout contentOption;
 
     private Drawable badgeWhite, badgePrimary;
     private int black, white, currentNumber = 0;
     private String currentAnswer = "";
+    private String answerId;
+    private String alphabet[] = {
+            "A", "B", "C", "D", "E", "F", "G", "H", "I"
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz);
 
-        badgeWhite = ContextCompat.getDrawable(Quiz.this, R.drawable.badge_white);
-        badgePrimary = ContextCompat.getDrawable(Quiz.this, R.drawable.badge_primary);
+        badgeWhite = ContextCompat.getDrawable(Quiz.this, R.drawable.form_radio);
+        badgePrimary = ContextCompat.getDrawable(Quiz.this, R.drawable.form_card_primary);
         black = ContextCompat.getColor(Quiz.this, R.color.black);
         white = ContextCompat.getColor(Quiz.this, R.color.white);
 
         findView();
         init();
-//        fetchQuestion();
+        fetchQuestion();
     }
 
     private void init() {
-//        if (!getIntent().getStringExtra("category").isEmpty()) {
-//            switch (getIntent().getStringExtra("category")) {
-//                case "relevansi":
-//                    title.setText("Relevansi");
-//                    break;
-//                case "efektifitas":
-//                    title.setText("Efektifitas");
-//                    break;
-//                case "efisiensi":
-//                    title.setText("Efisiensi");
-//                    break;
-//                case "keberlanjutan":
-//                    title.setText("Keberlanjutan");
-//                    break;
-//                case "dampak":
-//                    title.setText("Dampak");
-//                    break;
-//                default:
-//                    title.setText("");
-//                    break;
-//            }
-//        }
-
+        currentAnswer = "";
         title.setText("Kuis");
         back.setOnClickListener(this::onClick);
 
         numberQuestion.setOnClickListener(this::onClick);
         prevQuestion.setOnClickListener(this::onClick);
         nextQuestion.setOnClickListener(this::onClick);
+        finishQuiz.setOnClickListener(this::onClick);
     }
 
     private void findView() {
-        loading = findViewById(R.id.loading);
-        content = findViewById(R.id.content);
-        category = findViewById(R.id.category);
         number = findViewById(R.id.number);
         question = findViewById(R.id.question);
         numberQuestion = findViewById(R.id.list_quest);
@@ -94,53 +77,86 @@ public class Quiz extends BaseController implements View.OnClickListener {
         nextQuestion = findViewById(R.id.next);
         back = findViewById(R.id.back);
         title = findViewById(R.id.title);
+
+        contentOption = findViewById(R.id.content_option);
+        yourAnswer = findViewById(R.id.your_answer);
+
+        questionUnFilled = findViewById(R.id.total_question_unfilled);
+        totalQuestion = findViewById(R.id.total_question);
+        duration = findViewById(R.id.duration);
+        finishQuiz = findViewById(R.id.submit);
     }
 
     private void fetchQuestion() {
-        String category = getIntent().getStringExtra("category");
-        loading.setVisibility(View.VISIBLE);
-        content.setVisibility(View.GONE);
+        String id = getIntent().getStringExtra("id");
         try {
-            service.apiService(service.quiz + "category=" + category, null, null, true, new Service.hashMapListener() {
+            service.apiService(service.quizStart + id, null, null, true, new Service.hashMapListener() {
                 @Override
                 public String getHashMap(Map<String, String> hashMap) {
                     try {
                         if (hashMap.get("status").equals("true")) {
-                            JSONArray data = new JSONArray(hashMap.get("data"));
+                            JSONObject data = new JSONObject(hashMap.get("data"));
 
-                            for (int i = 0; i < data.length(); i++) {
-                                JSONObject detail = data.getJSONObject(i);
+                            duration.setText(data.getString("duration"));
+                            answerId = data.getString("answer_id");
 
-                                QuizModel item = new QuizModel();
+                            countDown(data.getLong("time_diff"), duration);
 
-                                item.setNumber(String.valueOf(i + 1));
-                                item.setId(detail.getString("content_id"));
-                                item.setCategory(detail.getString("master_header_title"));
-                                item.setSection(detail.getString("header_title"));
-                                item.setQuestion(detail.getString("title"));
-                                item.setAnswer(detail.getString("answer"));
-                                item.setPercentage(detail.getString("percentage") + "%");
+                            if (!data.isNull("question")) {
+                                JSONArray question = data.getJSONArray("question");
 
-                                lists.add(item);
+                                for (int i = 0; i < question.length(); i++) {
+                                    JSONObject detail = question.getJSONObject(i);
+
+                                    QuizModel item = new QuizModel();
+
+                                    item.setNumber(String.valueOf(i + 1));
+                                    item.setId(detail.getString("id"));
+                                    item.setQuestion(detail.getString("question"));
+                                    item.setAnswer(detail.getString("your_answer"));
+                                    item.setType(detail.getString("type"));
+                                    if(detail.getString("type").equals("MULTIPLE_CHOICE"))
+                                        item.setOption(detail.getJSONArray("options"));
+
+                                    lists.add(item);
+                                }
+
+                                showHideButtonNextPrev();
+                                setQuestion(currentNumber);
+
+                                totalQuestion.setText(lists.size() + " Soal");
                             }
-                            showHideButtonNextPrev();
-                            setQuestion(currentNumber);
+                        } else {
+                            stopQuiz();
                         }
-                        loading.setVisibility(View.GONE);
-                        content.setVisibility(View.VISIBLE);
                     } catch (Exception er) {
-                        loading.setVisibility(View.GONE);
-                        content.setVisibility(View.VISIBLE);
                         er.printStackTrace();
                     }
                     return null;
                 }
             });
         } catch (Exception e) {
-            loading.setVisibility(View.GONE);
-            content.setVisibility(View.VISIBLE);
             e.printStackTrace();
         }
+    }
+
+    public void countDown(long millisecond,final TextView tv){
+        new CountDownTimer(millisecond, 1000) {
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000) % 60;
+                int minutes = (int) (millisUntilFinished / (1000 * 60)) % 60;
+                int hour = (int) (millisUntilFinished / (1000 * 60 * 60)) % 60;
+
+                tv.setText(String.format("%02d", hour)
+                        + ":" + String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
+            }
+
+            public void onFinish() {
+                tv.setText("Completed");
+                stopQuiz();
+            }
+        }.start();
     }
 
     private void setQuestion(int index) {
@@ -148,30 +164,55 @@ public class Quiz extends BaseController implements View.OnClickListener {
             currentAnswer = "";
             QuizModel item = lists.get(index);
 
-            category.setText(item.getCategory());
             number.setText(item.getNumber());
             question.setText(item.getQuestion());
 
-//            checkedOption(null);
-//            switch (item.getAnswer()) {
-//                case "1":
-//                    checkedOption(option1);
-//                    break;
-//                case "2":
-//                    checkedOption(option2);
-//                    break;
-//                case "3":
-//                    checkedOption(option3);
-//                    break;
-//                case "4":
-//                    checkedOption(option4);
-//                    break;
-//                case "5":
-//                    checkedOption(option5);
-//                    break;
-//                default:
-//                    break;
-//            }
+            countUnFilledQuest();
+
+            if (item.getType().equals("ESSAY")) { // if type of question is essay
+                yourAnswer.setVisibility(View.VISIBLE);
+                contentOption.setVisibility(View.GONE);
+                yourAnswer.setText(item.getAnswer());
+
+                if (!item.getAnswer().isEmpty())
+                    lists.get(index).setEditAnswer(true);
+            } else { // if type of question is multiple choice
+                yourAnswer.setVisibility(View.GONE);
+                contentOption.setVisibility(View.VISIBLE);
+
+                if (item.getOption().length() > 0) {
+                    contentOption.removeAllViews();
+
+                    for (int x = 0; x < item.getOption().length(); x++) {
+                        View option = helper.inflateView(R.layout.item_quiz_option);
+
+                        TextView optionText = option.findViewById(R.id.option_text);
+
+                        helper.setTextHtml(optionText, item.getOption().get(x).toString());
+
+                        int finalX = x;
+                        option.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                checkedOption(finalX);
+
+                                if (!item.getAnswer().isEmpty())
+                                    lists.get(finalX).setEditAnswer(true);
+                                currentAnswer = alphabet[finalX];
+                                saveQuiz(false);
+                            }
+                        });
+                        contentOption.addView(option);
+
+                        // set selected option by curr answer
+                        if (item.getAnswer().equals(alphabet[finalX])) {
+                            checkedOption(finalX);
+                        }
+
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,6 +258,7 @@ public class Quiz extends BaseController implements View.OnClickListener {
 
                     currentNumber = index;
                     setQuestion(currentNumber);
+                    showHideButtonNextPrev();
                     dialog.dismiss();
                 }
             });
@@ -227,24 +269,22 @@ public class Quiz extends BaseController implements View.OnClickListener {
         dialog.show();
     }
 
-//    private void checkedOption(View view) {
-//        option1.setTextColor(black);
-//        option2.setTextColor(black);
-//        option3.setTextColor(black);
-//        option4.setTextColor(black);
-//        option5.setTextColor(black);
-//
-//        option1.setBackground(badgeWhite);
-//        option2.setBackground(badgeWhite);
-//        option3.setBackground(badgeWhite);
-//        option4.setBackground(badgeWhite);
-//        option5.setBackground(badgeWhite);
-//
-//        if (view != null) {
-//            ((TextView) view).setBackground(badgePrimary);
-//            ((TextView) view).setTextColor(white);
-//        }
-//    }
+    private void checkedOption(int index) {
+        for (int x = 0; x < contentOption.getChildCount(); x++) {
+            View view  = contentOption.getChildAt(x);
+
+            LinearLayout content = view.findViewById(R.id.content_item_option);
+            TextView textOption = view.findViewById(R.id.option_text);
+
+            textOption.setTextColor(black);
+            content.setBackground(badgeWhite);
+
+            if (index == x) {
+                textOption.setTextColor(white);
+                content.setBackground(badgePrimary);
+            }
+        }
+    }
 
     private void showHideButtonNextPrev() {
         prevQuestion.setVisibility(View.VISIBLE);
@@ -257,27 +297,91 @@ public class Quiz extends BaseController implements View.OnClickListener {
         }
     }
 
+    private void countUnFilledQuest() {
+        int totalUnFilled = 0;
+        for (int x = 0; x < lists.size(); x++) {
+            QuizModel item = lists.get(x);
+            if (item.getAnswer().isEmpty())
+                totalUnFilled++;
+        }
+        questionUnFilled.setText(totalUnFilled + " Soal");
+    }
+
     private void saveQuiz(boolean nextQuestion) {
         try {
             QuizModel item = lists.get(currentNumber);
 
+            if (item.getType().equals("ESSAY"))
+                currentAnswer = yourAnswer.getText().toString();
+
+            if (!currentAnswer.isEmpty()) {
+                param.clear();
+                param.put("id", item.getId());
+                param.put("answer_id", answerId);
+                param.put("answer", currentAnswer);
+                service.apiService(service.quizSave, param, null, true, new Service.hashMapListener() {
+                    @Override
+                    public String getHashMap(Map<String, String> hashMap) {
+                        try {
+                            helper.showToast(hashMap.get("message"), 0);
+                            if (hashMap.get("status").equals("true")) {
+                                lists.get(currentNumber).setAnswer(currentAnswer);
+                                countUnFilledQuest();
+
+                                if (nextQuestion) {
+                                    if (currentNumber < lists.size())
+                                        currentNumber++;
+                                    showHideButtonNextPrev();
+                                    setQuestion(currentNumber);
+
+                                    currentAnswer = "";
+                                }
+                            }
+                        } catch (Exception er) {
+                            er.printStackTrace();
+                        }
+                        return null;
+                    }
+                });
+            } else {
+                if (currentNumber < lists.size())
+                    currentNumber++;
+                setQuestion(currentNumber);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void confirmStopQuiz() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        stopQuiz();
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        dialogInterface.dismiss();
+                        return;
+                    default:
+                        return;
+                }
+            }
+        };
+        helper.popupConfirm("Apakah kamu yakin ?", "Kamu akan menyelesaikan kuis ini!", dialogClickListener);
+    }
+
+    private void stopQuiz() {
+        try {
             param.clear();
-            param.put("id", item.getId());
-            param.put("answer", currentAnswer);
-            service.apiService(service.quizSave, param, null, true, new Service.hashMapListener() {
+            param.put("answer_id", answerId);
+            service.apiService(service.quizStop, param, null, true, new Service.hashMapListener() {
                 @Override
                 public String getHashMap(Map<String, String> hashMap) {
                     try {
                         helper.showToast(hashMap.get("message"), 0);
                         if (hashMap.get("status").equals("true")) {
-                            lists.get(currentNumber).setAnswer(currentAnswer);
-
-                            if (nextQuestion) {
-                                if (currentNumber < lists.size())
-                                    currentNumber++;
-                                showHideButtonNextPrev();
-                                setQuestion(currentNumber);
-                            }
+                            finish();
                         }
                     } catch (Exception er) {
                         er.printStackTrace();
@@ -303,10 +407,11 @@ public class Quiz extends BaseController implements View.OnClickListener {
                 setQuestion(currentNumber);
                 break;
             case R.id.next:
-                if (currentNumber < lists.size())
-                    currentNumber++;
                 showHideButtonNextPrev();
-                setQuestion(currentNumber);
+                saveQuiz(true);
+                break;
+            case R.id.submit:
+                confirmStopQuiz();
                 break;
             case R.id.back:
                 finish();

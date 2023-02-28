@@ -29,10 +29,9 @@ public class Service {
     private final Activity activity;
     private final GeneralHelper functionHelper;
     private final ProgressDialog pDialog;
-//    private String baseUrl = "https://api.nitalestari.com/mobile/";
-    private String baseUrl = "https://bd45-2001-448a-304e-66af-716a-5ee4-27d3-6c47.ap.ngrok.io/mobile/";
+    private String baseUrl = "https://api.nitalestari.com/mobile/";
+//    private String baseUrl = "https://33a1-103-121-18-5.ap.ngrok.io/mobile/";
     public String login = baseUrl + "auth/signin";
-    public String quiz = baseUrl + "quiz/retrieve?";
     public String theory = baseUrl + "theory/retrieve";
     public String dashboard = baseUrl + "student/dashboard";
     public String courses = baseUrl + "student/courses/list";
@@ -40,8 +39,8 @@ public class Service {
     public String learningPath = baseUrl + "student/lessons/list?id=";
     public String lessonDetail = baseUrl + "student/lessons/detail?id=";
     public String saveAssignment = baseUrl + "student/assignment/save";
-    public String quizOverview = baseUrl + "student/quiz/overview";
-    public String quizStart = baseUrl + "student/quiz/start";
+    public String quizOverview = baseUrl + "student/quiz/overview?lessons_id=";
+    public String quizStart = baseUrl + "student/quiz/start?lessons_id=";
     public String quizSave = baseUrl + "student/quiz/save";
     public String quizStop = baseUrl + "student/quiz/stop";
 

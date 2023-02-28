@@ -79,9 +79,9 @@ public class LearningPath extends BaseController implements View.OnClickListener
                                     String expired = "";
 
                                     if (lessonDetail.getInt("is_expired") == 1) {
-                                        expired += helper.convertDateString(lessonDetail.getString("start_date"), "YYYY-MM-DD", "MMM DD, YYYY");
+                                        expired += helper.convertDateString(lessonDetail.getString("start_date"), "yyyy-MM-dd", "MMM dd, yyyy");
                                         expired += " s.d ";
-                                        expired += helper.convertDateString(lessonDetail.getString("end_date"), "YYYY-MM-DD", "MMM DD, YYYY");
+                                        expired += helper.convertDateString(lessonDetail.getString("end_date"), "yyyy-MM-dd", "MMM dd, yyyy");
                                     }
 
                                     listLessons.add(new LessonsModel(lessonDetail.getString("id"), lessonDetail.getString("name"), lessonDetail.getString("type"), lessonDetail.getString("format"), expired, lessonDetail.getInt("locked") == 1));

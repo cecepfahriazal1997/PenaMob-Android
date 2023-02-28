@@ -83,9 +83,9 @@ public class LearningDetail extends BaseController implements View.OnClickListen
                             String expiredDate = "";
 
                             if (detail.getInt("is_expired") == 1) {
-                                expiredDate += helper.convertDateString(detail.getString("start_date"), "YYYY-MM-DD", "MMM DD, YYYY");
+                                expiredDate += helper.convertDateString(detail.getString("start_date"), "yyyy-MM-dd", "MMM dd, yyyy");
                                 expiredDate += " s.d ";
-                                expiredDate += helper.convertDateString(detail.getString("end_date"), "YYYY-MM-DD", "MMM DD, YYYY");
+                                expiredDate += helper.convertDateString(detail.getString("end_date"), "yyyy-MM-dd", "MMM dd, yyyy");
                             }
 
                             expired.setText(expiredDate);
