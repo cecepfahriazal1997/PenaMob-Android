@@ -283,6 +283,7 @@ public class Quiz extends BaseController implements View.OnClickListener {
             if (index == x) {
                 textOption.setTextColor(white);
                 content.setBackground(badgePrimary);
+                content.setPadding(21, 21, 21, 21);
             }
         }
     }
