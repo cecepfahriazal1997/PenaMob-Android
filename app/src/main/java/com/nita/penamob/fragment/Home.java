@@ -93,7 +93,7 @@ public class Home extends Fragment implements View.OnClickListener {
         adapter = new GridMenuAdapter(parent.getApplicationContext(), lists, R.layout.grid_menu, new GridMenuAdapter.OnClickListener() {
             @Override
             public void onClickListener(int position) {
-
+                parent.viewPager.setCurrentItem(1);
             }
         });
 

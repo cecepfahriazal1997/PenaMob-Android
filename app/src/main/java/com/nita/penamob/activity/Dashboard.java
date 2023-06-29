@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Dashboard extends BaseController implements View.OnClickListener {
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public ViewPager viewPager;
     private boolean doubleBackToExitPressedOnce = false;
     private Handler handler;
     public int tabIconColor;
@@ -78,7 +78,7 @@ public class Dashboard extends BaseController implements View.OnClickListener {
         adapter.addFragment(new Result(), title[2]);
         adapter.addFragment(new Account(), title[3]);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     public void selectPage(int pageIndex){
