@@ -92,11 +92,6 @@ public class QuizOverview extends BaseController implements View.OnClickListener
                             lesson.setText(dataLesson.getString("name"));
                             helper.setTextHtml(description, dataLesson.getString("description"));
 
-                            if (!dataLesson.getString("discussion").isEmpty()) {
-                                contentDiscussion.setVisibility(View.VISIBLE);
-                                helper.setTextHtml(discussion, dataLesson.getString("discussion"));
-                            }
-
                             if (dataLesson.getInt("is_expired") == 0) {
                                 contentExpire.setVisibility(View.GONE);
                             } if (dataLesson.getString("note").isEmpty()) {
@@ -126,6 +121,11 @@ public class QuizOverview extends BaseController implements View.OnClickListener
                                 totalCorrect.setText(tmpScore.getString("correct"));
                                 totalWrong.setText(tmpScore.getString("wrong"));
                                 score.setText(tmpScore.getString("score"));
+
+                                if (!dataLesson.getString("discussion").isEmpty()) {
+                                    contentDiscussion.setVisibility(View.VISIBLE);
+                                    helper.setTextHtml(discussion, dataLesson.getString("discussion"));
+                                }
 
                                 alert.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.badge_success));
                                 alertIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check));
