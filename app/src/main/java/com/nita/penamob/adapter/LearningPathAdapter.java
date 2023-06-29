@@ -126,6 +126,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                         if (!row.isLocked()) {
                             switch (row.getType().toLowerCase()) {
                                 case "lesson":
+                                case "resume":
                                     params.put("type", "materi");
                                     helper.startIntent(LearningDetail.class, false, params);
                                     break;

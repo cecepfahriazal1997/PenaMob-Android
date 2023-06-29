@@ -165,7 +165,8 @@ public class Quiz extends BaseController implements View.OnClickListener {
             QuizModel item = lists.get(index);
 
             number.setText(item.getNumber());
-            question.setText(item.getQuestion());
+//            question.setText(item.getQuestion());
+            helper.setTextHtml(question, item.getQuestion());
 
             countUnFilledQuest();
 

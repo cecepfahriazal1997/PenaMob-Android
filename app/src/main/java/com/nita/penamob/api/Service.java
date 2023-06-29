@@ -29,8 +29,8 @@ public class Service {
     private final Activity activity;
     private final GeneralHelper functionHelper;
     private final ProgressDialog pDialog;
-    private String baseUrl = "https://api.nitalestari.com/mobile/";
-//    private String baseUrl = "https://33a1-103-121-18-5.ap.ngrok.io/mobile/";
+//    private String baseUrl = "https://api.nitalestari.com/mobile/";
+    private String baseUrl = "https://41c7-125-164-16-44.ngrok-free.app/mobile/";
     public String login = baseUrl + "auth/signin";
     public String theory = baseUrl + "theory/retrieve";
     public String dashboard = baseUrl + "student/dashboard";
@@ -91,6 +91,9 @@ public class Service {
                     .setLogging("ApiService", Log.DEBUG)
                     .setHeader("Authorization", functionHelper.getSession("key"))
                     .noCache();
+
+            if (functionHelper.getSession("key") != null)
+                Log.e("T", functionHelper.getSession("key"));
 
             if (files != null) {
                 if (paramList != null) {

@@ -20,8 +20,9 @@ import java.util.Map;
 public class QuizOverview extends BaseController implements View.OnClickListener {
     private ImageButton back;
     private TextView title, alertTitle, lesson, description, expired, note, duration,
-                    totalCorrect, totalWrong, score;
-    private LinearLayout alert, contentLesson, contentScore, contentExpire, contentNote, contentDuration;
+                    totalCorrect, totalWrong, score, discussion;
+    private LinearLayout alert, contentLesson, contentScore, contentExpire, contentNote, contentDuration,
+                    contentDiscussion;
     private RelativeLayout btnStartQuiz, btnReference;
     private ImageView alertIcon;
     private String urlReference;
@@ -60,6 +61,8 @@ public class QuizOverview extends BaseController implements View.OnClickListener
         totalCorrect = findViewById(R.id.total_correct);
         totalWrong = findViewById(R.id.total_wrong);
         score = findViewById(R.id.score);
+        contentDiscussion = findViewById(R.id.conten_discussion);
+        discussion = findViewById(R.id.discussion);
     }
 
     private void init() {
@@ -88,6 +91,11 @@ public class QuizOverview extends BaseController implements View.OnClickListener
 
                             lesson.setText(dataLesson.getString("name"));
                             helper.setTextHtml(description, dataLesson.getString("description"));
+
+                            if (!dataLesson.getString("discussion").isEmpty()) {
+                                contentDiscussion.setVisibility(View.VISIBLE);
+                                helper.setTextHtml(discussion, dataLesson.getString("discussion"));
+                            }
 
                             if (dataLesson.getInt("is_expired") == 0) {
                                 contentExpire.setVisibility(View.GONE);
