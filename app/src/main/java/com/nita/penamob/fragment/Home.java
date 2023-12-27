@@ -1,10 +1,12 @@
 package com.nita.penamob.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,10 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
+import com.nita.penamob.adapter.BannerAdapter;
 import com.nita.penamob.adapter.GridMenuAdapter;
 import com.nita.penamob.api.Service;
+import com.nita.penamob.model.BannerModel;
 import com.nita.penamob.model.GridMenuModel;
+import com.smarteist.autoimageslider.SliderView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -28,6 +34,8 @@ public class Home extends Fragment implements View.OnClickListener {
     private GridMenuAdapter adapter;
     private TextView name;
     private List<GridMenuModel> lists = new ArrayList<>();
+
+    private SliderView sliderView;
 
     public Home() {
     }
@@ -50,12 +58,14 @@ public class Home extends Fragment implements View.OnClickListener {
     }
 
     private void findView(View rootView) {
+        sliderView = rootView.findViewById(R.id.imageSlider);
         listMenu = rootView.findViewById(R.id.list_menu);
         name = rootView.findViewById(R.id.name);
     }
 
     private void init() {
         name.setText(parent.functionHelper.getSession("name"));
+        initBanner();
     }
 
     private void fetchData() {
@@ -72,6 +82,41 @@ public class Home extends Fragment implements View.OnClickListener {
                 return null;
             }
         });
+    }
+
+    private void initBanner() {
+        try {
+            parent.clientApiService.apiService(parent.clientApiService.listBanner, null, null, false, new Service.hashMapListener() {
+                @Override
+                public String getHashMap(Map<String, String> hashMap) {
+                    try {
+                        List<BannerModel> listBanner = new ArrayList<>();
+
+                        if (hashMap.get("status").equals("true")) {
+                            JSONArray data = new JSONArray(hashMap.get("data"));
+
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject detail = data.getJSONObject(i);
+                                BannerModel dataBanner = new BannerModel();
+
+                                dataBanner.setImage(detail.getString("picture"));
+
+                                listBanner.add(dataBanner);
+                            }
+                        }
+                        BannerAdapter bannerAdapter = new BannerAdapter(parent.getApplicationContext(), listBanner);
+                        sliderView.setSliderAdapter(bannerAdapter);
+                        bannerAdapter.notifyDataSetChanged();
+                        sliderView.startAutoCycle();
+                    } catch (Exception error) {
+                        Log.e("banner", error.getLocalizedMessage());
+                    }
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            Log.e("banner", e.getLocalizedMessage());
+        }
     }
 
     private void setData(String[] value) {

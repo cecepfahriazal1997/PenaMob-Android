@@ -2,16 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Android-PestasMob" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AssesmentCriteria" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/InformasiBencanaApps" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/LCA-Online" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Perawatan" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Xolving" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-jobiz" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-mgo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/library-slims" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/sarupi-android" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/viona-android" vcs="Git" />
   </component>
 </project>

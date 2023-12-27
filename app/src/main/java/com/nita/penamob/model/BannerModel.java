@@ -1,17 +1,17 @@
 package com.nita.penamob.model;
 
 public class BannerModel {
-    private int image;
+    private String image;
     private String redirect;
 
     public BannerModel() {
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
