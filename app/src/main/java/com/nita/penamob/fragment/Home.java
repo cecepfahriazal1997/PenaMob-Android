@@ -99,6 +99,7 @@ public class Home extends Fragment implements View.OnClickListener {
                                 JSONObject detail = data.getJSONObject(i);
                                 BannerModel dataBanner = new BannerModel();
 
+                                dataBanner.setTitle(detail.getString("title"));
                                 dataBanner.setImage(detail.getString("picture"));
 
                                 listBanner.add(dataBanner);

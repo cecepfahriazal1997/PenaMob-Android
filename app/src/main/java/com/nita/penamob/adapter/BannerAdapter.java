@@ -1,6 +1,7 @@
 package com.nita.penamob.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bumptech.glide.Glide;
 import com.nita.penamob.R;
+import com.nita.penamob.activity.DetailBannerActivity;
 import com.nita.penamob.model.BannerModel;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
@@ -43,7 +45,10 @@ public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapter
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, DetailBannerActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra("title", data.getTitle())
+                        .putExtra("url", data.getImage()));
             }
         });
     }

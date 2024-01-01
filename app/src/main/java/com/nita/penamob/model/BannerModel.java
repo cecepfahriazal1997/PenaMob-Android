@@ -1,8 +1,7 @@
 package com.nita.penamob.model;
 
 public class BannerModel {
-    private String image;
-    private String redirect;
+    private String title, image, redirect;
 
     public BannerModel() {
     }
@@ -21,5 +20,13 @@ public class BannerModel {
 
     public void setRedirect(String redirect) {
         this.redirect = redirect;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
