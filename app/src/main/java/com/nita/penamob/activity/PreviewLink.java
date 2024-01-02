@@ -3,13 +3,12 @@ package com.nita.penamob.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
 import com.nita.penamob.R;
 
-public class DetailBannerActivity extends BaseController implements View.OnClickListener {
+public class PreviewLink extends BaseController implements View.OnClickListener {
     private WebView frame;
 
     @Override
@@ -27,6 +26,8 @@ public class DetailBannerActivity extends BaseController implements View.OnClick
 
         back.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.clear));
         title.setText(getIntent().getStringExtra("title"));
+
+        back.setOnClickListener(this::onClick);
 
         frame.setInitialScale(-1);
         helper.formatIsText(pDialog, frame, getIntent().getStringExtra("url"), "url");

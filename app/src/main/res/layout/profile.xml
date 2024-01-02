@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="42dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/account"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:riv_mutate_background="true"
+                app:riv_oval="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="NIS"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/identity_number"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_control"
+                android:enabled="false"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan username disini ..."
+                android:maxLines="1"
+                android:paddingVertical="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textSize="14dp"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Nama"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_control"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan nama disini ..."
+                android:maxLines="1"
+                android:paddingVertical="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textSize="14dp"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Tempat Lahir"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/placebirth"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_control"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan tempat lahir disini ..."
+                android:maxLines="1"
+                android:paddingVertical="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textSize="14dp"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Tanggal Lahir"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/datebirth"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_control"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan tanggal lahir disini ..."
+                android:maxLines="1"
+                android:paddingVertical="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textSize="14dp"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Email"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_control"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan email disini ..."
+                android:maxLines="1"
+                android:paddingVertical="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textSize="14dp"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="No. Telepon"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_control"
+                android:fontFamily="@raw/barlow_medium"
+                android:hint="Masukan no.telp disini ..."
+                android:maxLines="1"
+                android:paddingVertical="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grayLevel5"
+                android:textSize="14dp"
+                tools:ignore="TextSizeCheck" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/action"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="16dp"
+                android:visibility="gone"
+                app:fb_defaultColor="@color/primary"
+                app:fb_focusColor="@color/primaryDark"
+                app:fb_radius="8dp"
+                app:fb_text="Ubah"
+                app:fb_textColor="@color/white"
+                app:fb_textSize="16dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

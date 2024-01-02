@@ -72,7 +72,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PenaMob" />
         <activity
-            android:name=".activity.DetailBannerActivity"
+            android:name=".activity.PreviewLink"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PenaMob" />
+        <activity
+            android:name=".activity.Profile"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PenaMob" />
     </application>

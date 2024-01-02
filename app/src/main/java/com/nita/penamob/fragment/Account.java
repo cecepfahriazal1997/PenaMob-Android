@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nita.penamob.R;
 import com.nita.penamob.activity.Dashboard;
 import com.nita.penamob.activity.Login;
+import com.nita.penamob.activity.Profile;
 import com.nita.penamob.adapter.ProfileMenuAdapter;
 import com.nita.penamob.model.ProfileMenuModel;
 
@@ -55,7 +56,7 @@ public class Account extends Fragment implements View.OnClickListener {
 
     private void setMenu() {
         String title[] = {
-                "Ubah Profile",
+                "Profile",
                 "Tentang Aplikasi",
                 "Ubah Password",
                 "Term & Condition",
@@ -78,6 +79,11 @@ public class Account extends Fragment implements View.OnClickListener {
         adapter = new ProfileMenuAdapter(parent.getApplicationContext(), lists, R.layout.item_account, new ProfileMenuAdapter.OnClickListener() {
             @Override
             public void onClickListener(int position) {
+                switch (position) {
+                    case 0:
+                        parent.functionHelper.startIntent(Profile.class, false, null);
+                        break;
+                }
             }
         });
 
