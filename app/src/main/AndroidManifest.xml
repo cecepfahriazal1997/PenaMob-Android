@@ -79,6 +79,10 @@
             android:name=".activity.Profile"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PenaMob" />
+        <activity
+            android:name=".activity.ChangePassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PenaMob" />
     </application>
 
 </manifest>

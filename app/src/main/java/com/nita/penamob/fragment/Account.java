@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nita.penamob.R;
+import com.nita.penamob.activity.ChangePassword;
 import com.nita.penamob.activity.Dashboard;
 import com.nita.penamob.activity.Login;
 import com.nita.penamob.activity.Profile;
@@ -82,6 +83,15 @@ public class Account extends Fragment implements View.OnClickListener {
                 switch (position) {
                     case 0:
                         parent.functionHelper.startIntent(Profile.class, false, null);
+                        break;
+                    case 1:
+                        parent.functionHelper.popupDialog("Tentang Aplikasi", "Aplikasi PenaMob (pembelajaran tuntas berbantukan mobile) versi 1.0.0", false);
+                        break;
+                    case 2:
+                        parent.functionHelper.startIntent(ChangePassword.class, false, null);
+                        break;
+                    case 3:
+                        parent.functionHelper.openUrlToBrowser("https://app.nitalestari.com/#/term-condition");
                         break;
                 }
             }

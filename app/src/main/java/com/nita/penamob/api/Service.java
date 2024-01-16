@@ -35,6 +35,7 @@ public class Service {
     public String listBanner = baseUrl + "list-banner";
     public String theory = baseUrl + "theory/retrieve";
     public String profile = baseUrl + "student/profile";
+    public String changePassword = baseUrl + "student/profile/change-password";
     public String dashboard = baseUrl + "student/dashboard";
     public String courses = baseUrl + "student/courses/list";
     public String coursesDetail = baseUrl + "student/courses/detail?id=";

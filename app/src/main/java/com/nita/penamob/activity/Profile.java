@@ -96,7 +96,6 @@ public class Profile extends BaseController implements View.OnClickListener {
                 break;
             case R.id.image:
                 startActivity(new Intent(getBaseContext(), PreviewLink.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("title", "Foto Profile")
                         .putExtra("url", imageUrl));
                 break;
