@@ -17,7 +17,7 @@ import com.nita.penamob.R;
 import com.nita.penamob.api.Service;
 import com.nita.penamob.fragment.Account;
 import com.nita.penamob.fragment.Home;
-import com.nita.penamob.fragment.Result;
+import com.nita.penamob.fragment.Report;
 import com.nita.penamob.fragment.Courses;
 import com.nita.penamob.helper.GeneralHelper;
 import com.google.android.material.tabs.TabLayout;
@@ -75,7 +75,7 @@ public class Dashboard extends BaseController implements View.OnClickListener {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new Home(), title[0]);
         adapter.addFragment(new Courses(), title[1]);
-        adapter.addFragment(new Result(), title[2]);
+        adapter.addFragment(new Report(), title[2]);
         adapter.addFragment(new Account(), title[3]);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
@@ -180,10 +180,7 @@ public class Dashboard extends BaseController implements View.OnClickListener {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
     }
 }

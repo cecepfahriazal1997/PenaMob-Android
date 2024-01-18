@@ -46,6 +46,7 @@ public class Service {
     public String quizStart = baseUrl + "student/quiz/start?lessons_id=";
     public String quizSave = baseUrl + "student/quiz/save";
     public String quizStop = baseUrl + "student/quiz/stop";
+    public String report = baseUrl + "student/report";
 
     public String bodyResponse = "data";
 
