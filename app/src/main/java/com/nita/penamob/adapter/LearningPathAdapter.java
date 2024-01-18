@@ -1,7 +1,6 @@
 package com.nita.penamob.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,11 +62,13 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
             holder.total.setText("Tidak ada pembelajaran");
         }
 
-        if (item.isLocked()) {
-            holder.arrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.lock));
-            holder.arrow.setImageTintList(ContextCompat.getColorStateList(context, R.color.grayLevel4));
-            holder.topic.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
-            holder.total.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
+        if (!item.isWithScore()) {
+            if (item.isLocked()) {
+                holder.arrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.lock));
+                holder.arrow.setImageTintList(ContextCompat.getColorStateList(context, R.color.grayLevel4));
+                holder.topic.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
+                holder.total.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
+            }
         }
 
         // set list lessons
@@ -89,6 +90,7 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                 TextView type = viewLessons.findViewById(R.id.type);
                 TextView format = viewLessons.findViewById(R.id.format);
                 TextView expired = viewLessons.findViewById(R.id.expired);
+                TextView information = viewLessons.findViewById(R.id.information);
                 ImageView locked = viewLessons.findViewById(R.id.locked);
 
                 title.setText(row.getLessons());
@@ -96,53 +98,59 @@ public class LearningPathAdapter extends RecyclerView.Adapter<LearningPathAdapte
                 format.setText(row.getFormat());
                 expired.setText(row.getExpiredDate());
 
-                if (row.isLocked()) {
-                    locked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.lock));
-                    locked.setImageTintList(ContextCompat.getColorStateList(context, R.color.grayLevel4));
-                    title.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
-                    type.setVisibility(View.GONE);
-                    format.setVisibility(View.GONE);
-                    expired.setVisibility(View.GONE);
-                } else {
-                    type.setVisibility(View.VISIBLE);
-                    format.setVisibility(View.VISIBLE);
-                    expired.setVisibility(View.VISIBLE);
-                    title.setTextColor(ContextCompat.getColor(context, R.color.black));
-                    locked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arrow_right));
-                    locked.setImageTintList(ContextCompat.getColorStateList(context, R.color.black));
-                }
-
                 if (row.getExpiredDate().isEmpty()) {
                     expired.setVisibility(View.GONE);
                 }
 
-                Map<String, String> params = new HashMap<>();
-                content.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        params.clear();
-                        params.put("id", row.getId());
-
-                        if (!row.isLocked()) {
-                            switch (row.getType().toLowerCase()) {
-                                case "lesson":
-                                case "resume":
-                                    params.put("type", "materi");
-                                    helper.startIntent(LearningDetail.class, false, params);
-                                    break;
-                                case "assignment":
-                                    params.put("type", "tugas");
-                                    helper.startIntent(LearningDetail.class, false, params);
-                                    break;
-                                case "quiz":
-                                    helper.startIntent(QuizOverview.class, false, params);
-                                    break;
-                            }
-                        } else {
-                            helper.showToast("Materi ini masih terkunci, silahkan buka materi sebelumnya!", 0);
-                        }
+                if (!item.isWithScore()) {
+                    if (row.isLocked()) {
+                        locked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.lock));
+                        locked.setImageTintList(ContextCompat.getColorStateList(context, R.color.grayLevel4));
+                        title.setTextColor(ContextCompat.getColor(context, R.color.grayLevel4));
+                        type.setVisibility(View.GONE);
+                        format.setVisibility(View.GONE);
+                        expired.setVisibility(View.GONE);
+                    } else {
+                        type.setVisibility(View.VISIBLE);
+                        format.setVisibility(View.VISIBLE);
+                        expired.setVisibility(View.VISIBLE);
+                        title.setTextColor(ContextCompat.getColor(context, R.color.black));
+                        locked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arrow_right));
+                        locked.setImageTintList(ContextCompat.getColorStateList(context, R.color.black));
                     }
-                });
+
+                    Map<String, String> params = new HashMap<>();
+                    content.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            params.clear();
+                            params.put("id", row.getId());
+
+                            if (!row.isLocked()) {
+                                switch (row.getType().toLowerCase()) {
+                                    case "lesson":
+                                    case "resume":
+                                        params.put("type", "materi");
+                                        helper.startIntent(LearningDetail.class, false, params);
+                                        break;
+                                    case "assignment":
+                                        params.put("type", "tugas");
+                                        helper.startIntent(LearningDetail.class, false, params);
+                                        break;
+                                    case "quiz":
+                                        helper.startIntent(QuizOverview.class, false, params);
+                                        break;
+                                }
+                            } else {
+                                helper.showToast("Materi ini masih terkunci, silahkan buka materi sebelumnya!", 0);
+                            }
+                        }
+                    });
+                } else {
+                    locked.setVisibility(View.GONE);
+                    information.setVisibility(View.VISIBLE);
+                    information.setText(row.getInformation());
+                }
 
                 holder.contentLessons.addView(viewLessons);
             }

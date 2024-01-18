@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LearningPathModel {
     private String id, topic;
-    private boolean haveLessons, locked, opened;
+    private boolean haveLessons, locked, opened, withScore;
     private List<LessonsModel> lessons = new ArrayList<LessonsModel>();
 
     public LearningPathModel(String id, String topic, boolean haveLessons, List<LessonsModel> lessons, boolean locked, boolean opened) {
@@ -14,6 +14,7 @@ public class LearningPathModel {
         this.haveLessons = haveLessons;
         this.lessons = lessons;
         this.locked = locked;
+        this.withScore = false;
     }
 
     public String getId() {
@@ -42,5 +43,13 @@ public class LearningPathModel {
 
     public void setOpened(boolean opened) {
         this.opened = opened;
+    }
+
+    public boolean isWithScore() {
+        return withScore;
+    }
+
+    public void setWithScore(boolean withScore) {
+        this.withScore = withScore;
     }
 }

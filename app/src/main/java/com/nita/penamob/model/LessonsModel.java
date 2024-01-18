@@ -1,7 +1,7 @@
 package com.nita.penamob.model;
 
 public class LessonsModel {
-    private String id, lessons, type, format, expiredDate;
+    private String id, lessons, type, format, expiredDate, information;
     private boolean locked;
 
     public LessonsModel(String id, String lessons, String type, String format, String expiredDate,
@@ -36,5 +36,13 @@ public class LessonsModel {
 
     public boolean isLocked() {
         return locked;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 }

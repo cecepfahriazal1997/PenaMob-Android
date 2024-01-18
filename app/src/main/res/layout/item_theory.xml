@@ -16,6 +16,9 @@
             android:id="@+id/lesson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@+id/contentRight"
             android:fontFamily="@raw/barlow_medium"
             android:text="Pembelajaran Pertama"
             android:textColor="@color/black"
@@ -50,20 +53,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/format"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="2dp"
+            android:layout_toLeftOf="@+id/contentRight"
+            android:layout_marginRight="16dp"
             android:fontFamily="@raw/barlow_medium"
             android:text="Kedaluarsa : Aug 11, 2022 s.d Aug 24, 2022"
             android:textColor="@color/grayLevel5"
             android:textSize="12sp" />
 
-        <ImageView
-            android:id="@+id/locked"
+        <RelativeLayout
+            android:id="@+id/contentRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/lock"
-            app:tint="@color/grayLevel4" />
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/locked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/lock"
+                app:tint="@color/grayLevel4" />
+
+            <TextView
+                android:id="@+id/information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </LinearLayout>
