@@ -30,7 +30,7 @@ public class Service {
     private final GeneralHelper functionHelper;
     private final ProgressDialog pDialog;
     private String baseUrl = "https://api.nitalestari.com/mobile/";
-//    private String baseUrl = "https://d58c-125-164-17-204.ngrok-free.app/mobile/";
+//    private String baseUrl = "https://c6bc-125-164-16-17.ngrok-free.app/mobile/";
     public String login = baseUrl + "auth/signin";
     public String listBanner = baseUrl + "list-banner";
     public String theory = baseUrl + "theory/retrieve";
@@ -47,6 +47,7 @@ public class Service {
     public String quizSave = baseUrl + "student/quiz/save";
     public String quizStop = baseUrl + "student/quiz/stop";
     public String report = baseUrl + "student/report?course_id=";
+    public String readLesson = baseUrl + "student/quiz/read-lesson";
 
     public String bodyResponse = "data";
 

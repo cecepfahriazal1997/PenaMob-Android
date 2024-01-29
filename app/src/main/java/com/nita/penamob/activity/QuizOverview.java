@@ -1,6 +1,7 @@
 package com.nita.penamob.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,20 +14,25 @@ import androidx.core.content.ContextCompat;
 import com.nita.penamob.R;
 import com.nita.penamob.api.Service;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class QuizOverview extends BaseController implements View.OnClickListener {
     private ImageButton back;
     private TextView title, alertTitle, lesson, description, expired, note, duration,
-                    totalCorrect, totalWrong, score, discussion;
+            totalCorrect, totalWrong, score, discussion, labelStartQuiz;
     private LinearLayout alert, contentLesson, contentScore, contentExpire, contentNote, contentDuration,
-                    contentDiscussion;
+            contentDiscussion, listLesson;
     private RelativeLayout btnStartQuiz, btnReference;
+    private TextView totalReadLessons, totalLessons;
     private ImageView alertIcon;
     private String urlReference;
     private boolean isPause = false;
+    private boolean isRemedial = false;
 
     private String id;
 
@@ -44,8 +50,10 @@ public class QuizOverview extends BaseController implements View.OnClickListener
         back = findViewById(R.id.back);
         title = findViewById(R.id.title);
         btnStartQuiz = findViewById(R.id.btn_start_quiz);
+        labelStartQuiz = findViewById(R.id.label_start_quiz);
         alert = findViewById(R.id.alert);
         contentLesson = findViewById(R.id.content_lesson);
+        listLesson = findViewById(R.id.list_lesson);
         contentScore = findViewById(R.id.content_score);
         alertIcon = findViewById(R.id.alert_icon);
         alertTitle = findViewById(R.id.alert_title);
@@ -60,6 +68,8 @@ public class QuizOverview extends BaseController implements View.OnClickListener
         btnReference = findViewById(R.id.btn_reference);
         totalCorrect = findViewById(R.id.total_correct);
         totalWrong = findViewById(R.id.total_wrong);
+        totalReadLessons = findViewById(R.id.read_lesson);
+        totalLessons = findViewById(R.id.total_lesson);
         score = findViewById(R.id.score);
         contentDiscussion = findViewById(R.id.conten_discussion);
         discussion = findViewById(R.id.discussion);
@@ -94,11 +104,14 @@ public class QuizOverview extends BaseController implements View.OnClickListener
 
                             if (dataLesson.getInt("is_expired") == 0) {
                                 contentExpire.setVisibility(View.GONE);
-                            } if (dataLesson.getString("note").isEmpty()) {
+                            }
+                            if (dataLesson.getString("note").isEmpty()) {
                                 contentNote.setVisibility(View.GONE);
-                            } if (dataLesson.getString("references").isEmpty()) {
+                            }
+                            if (dataLesson.getString("references").isEmpty()) {
                                 btnReference.setVisibility(View.GONE);
-                            } if (dataLesson.getString("duration").isEmpty()) {
+                            }
+                            if (dataLesson.getString("duration").isEmpty()) {
                                 contentDuration.setVisibility(View.GONE);
                             }
 
@@ -127,19 +140,57 @@ public class QuizOverview extends BaseController implements View.OnClickListener
                                     helper.setTextHtml(discussion, dataLesson.getString("discussion"));
                                 }
 
-                                alert.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.badge_success));
-                                alertIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check));
-                                alertTitle.setText("Kamu telah menyelesaikan kuis ini");
-                                contentScore.setVisibility(View.VISIBLE);
-                                contentLesson.setVisibility(View.VISIBLE);
-                                alert.setVisibility(View.VISIBLE);
                                 btnStartQuiz.setVisibility(View.GONE);
+                                contentScore.setVisibility(View.VISIBLE);
+
+                                listLesson.removeAllViews();
+                                if (tmpScore.getString("have_passed").equals("false")) {
+                                    contentLesson.setVisibility(View.VISIBLE);
+
+                                    JSONArray relatedLesson = tmpScore.getJSONObject("related_lessons").getJSONArray("list");
+                                    int totalRead = tmpScore.getJSONObject("related_lessons").getInt("total_read");
+                                    if (totalRead == relatedLesson.length()) {
+                                        labelStartQuiz.setText("Mulai Remedial Sekarang");
+                                        btnStartQuiz.setVisibility(View.VISIBLE);
+
+                                        isRemedial = true;
+                                    }
+
+                                    totalReadLessons.setText(String.valueOf(totalRead));
+                                    totalLessons.setText("/" + relatedLesson.length());
+
+                                    for (int x = 0; x < relatedLesson.length(); x++) {
+                                        View layoutRelatedLesson = helper.inflateView(R.layout.item_lesson_remedial);
+
+                                        ImageView icon = layoutRelatedLesson.findViewById(R.id.icon);
+                                        TextView title = layoutRelatedLesson.findViewById(R.id.title);
+
+                                        JSONObject detailRelatedLesson = relatedLesson.getJSONObject(x);
+
+                                        title.setText(detailRelatedLesson.getString("name"));
+
+                                        layoutRelatedLesson.setPadding(0, 10, 0, 10);
+
+                                        layoutRelatedLesson.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                try {
+                                                    readLesson(data.getString("answer_id"), detailRelatedLesson.getString("id"));
+                                                } catch (JSONException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        });
+
+                                        listLesson.addView(layoutRelatedLesson);
+                                    }
+                                    showAlert("warning", "Kamu belum lulus pada kuis ini\nsilahkan pelajari kembali materi dibawah ini", true);
+                                } else {
+                                    showAlert("success", "Kamu belum mengerjakan kuis ini", true);
+                                }
                             } else { // if user unfinish quiz
                                 if (!data.getBoolean("is_started")) {
-                                    alert.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.badge_warning));
-                                    alertIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.warning));
-                                    alertTitle.setText("Kamu belum mengerjakan kuis ini");
-                                    alert.setVisibility(View.GONE);
+                                    showAlert("warning", "Kamu belum mengerjakan kuis ini", true);
                                     contentScore.setVisibility(View.GONE);
                                     contentLesson.setVisibility(View.GONE);
                                 } else {
@@ -159,10 +210,51 @@ public class QuizOverview extends BaseController implements View.OnClickListener
         }
     }
 
+    private void readLesson(String quizId, String lessonId) {
+        try {
+            HashMap<String, String> post = new HashMap<>();
+            post.put("quiz_id", quizId);
+            post.put("lessons_id", lessonId);
+            service.apiService(service.readLesson, post, null, true, new Service.hashMapListener() {
+                @Override
+                public String getHashMap(Map<String, String> hashMap) {
+                    try {
+                        HashMap<String, String> params;
+                        params = new HashMap();
+                        params.put("id", lessonId);
+                        params.put("type", "materi");
+                        helper.startIntent(LearningDetail.class, false, params);
+                    } catch (Exception err) {
+                        err.printStackTrace();
+                    }
+                    return null;
+                }
+            });
+        } catch (Exception er) {
+            er.printStackTrace();
+        }
+    }
+
+    private void showAlert(String type, String message, boolean isShow) {
+        if (type.equals("success")) {
+            alert.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.badge_success));
+            alertIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check));
+        } else {
+            alert.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.badge_warning));
+            alertIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.warning));
+        }
+        alertTitle.setText(message);
+
+        alert.setVisibility(View.GONE);
+        if (isShow)
+            alert.setVisibility(View.VISIBLE);
+    }
 
     private void goToQuiz() {
         param.clear();
         param.put("id", id);
+        param.put("is_remedial", String.valueOf(isRemedial));
+
         helper.startIntent(Quiz.class, false, param);
     }
 

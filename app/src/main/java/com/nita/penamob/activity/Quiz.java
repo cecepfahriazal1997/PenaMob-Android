@@ -89,8 +89,9 @@ public class Quiz extends BaseController implements View.OnClickListener {
 
     private void fetchQuestion() {
         String id = getIntent().getStringExtra("id");
+        String isRemedial = getIntent().getStringExtra("is_remedial");
         try {
-            service.apiService(service.quizStart + id, null, null, true, new Service.hashMapListener() {
+            service.apiService(service.quizStart + id + "&is_remedial=" + isRemedial, null, null, true, new Service.hashMapListener() {
                 @Override
                 public String getHashMap(Map<String, String> hashMap) {
                     try {
@@ -127,7 +128,12 @@ public class Quiz extends BaseController implements View.OnClickListener {
                                 totalQuestion.setText(lists.size() + " Soal");
                             }
                         } else {
-                            stopQuiz();
+                            if (hashMap.get("stop_quiz").equals("true")) {
+                                stopQuiz();
+                            } else {
+                                finish();
+                                helper.showToast(hashMap.get("message"), 0);
+                            }
                         }
                     } catch (Exception er) {
                         er.printStackTrace();
