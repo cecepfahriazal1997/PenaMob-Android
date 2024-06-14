@@ -186,11 +186,11 @@ public class QuizOverview extends BaseController implements View.OnClickListener
                                     }
                                     showAlert("warning", "Kamu belum lulus pada kuis ini\nsilahkan pelajari kembali materi dibawah ini", true);
                                 } else {
-                                    showAlert("success", "Kamu belum mengerjakan kuis ini", true);
+                                    showAlert("success", hashMap.get("message"), true);
                                 }
                             } else { // if user unfinish quiz
                                 if (!data.getBoolean("is_started")) {
-                                    showAlert("warning", "Kamu belum mengerjakan kuis ini", true);
+                                    showAlert("warning", hashMap.get("message"), true);
                                     contentScore.setVisibility(View.GONE);
                                     contentLesson.setVisibility(View.GONE);
                                 } else {

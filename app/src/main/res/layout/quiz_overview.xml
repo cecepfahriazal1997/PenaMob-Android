@@ -256,8 +256,7 @@
         android:layout_margin="32dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/form_card_primary"
-        android:padding="16dp"
-        android:visibility="gone">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/label_start_quiz"

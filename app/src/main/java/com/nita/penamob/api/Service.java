@@ -30,7 +30,7 @@ public class Service {
     private final GeneralHelper functionHelper;
     private final ProgressDialog pDialog;
     private String baseUrl = "https://api.nitalestari.com/mobile/";
-//    private String baseUrl = "https://c6bc-125-164-16-17.ngrok-free.app/mobile/";
+//    private String baseUrl = "https://beef-103-121-18-34.ngrok-free.app/mobile/";
     public String login = baseUrl + "auth/signin";
     public String listBanner = baseUrl + "list-banner";
     public String theory = baseUrl + "theory/retrieve";
@@ -150,6 +150,8 @@ public class Service {
                                         if (status.equals("true") && results.has(bodyResponse)) {
                                             String data     = results.getString(bodyResponse);
                                             hash.put("data", data);
+                                        } if (results.has("stop_quiz")) {
+                                            hash.put("stop_quiz", results.getString("stop_quiz"));
                                         }
                                         listener.getHashMap(hash);
                                     } else {

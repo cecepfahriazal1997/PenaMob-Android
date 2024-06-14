@@ -1,5 +1,6 @@
 package com.nita.penamob.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.nita.penamob.R;
 import com.nita.penamob.activity.ChangePassword;
 import com.nita.penamob.activity.Dashboard;
 import com.nita.penamob.activity.Login;
+import com.nita.penamob.activity.PreviewLink;
 import com.nita.penamob.activity.Profile;
 import com.nita.penamob.adapter.ProfileMenuAdapter;
 import com.nita.penamob.model.ProfileMenuModel;
@@ -59,12 +61,14 @@ public class Account extends Fragment implements View.OnClickListener {
         String title[] = {
                 "Profile",
                 "Tentang Aplikasi",
+                "Buku Manual",
                 "Ubah Password",
                 "Term & Condition",
         };
         int icon[] = {
                 R.drawable.person_fill,
                 R.drawable.info,
+                R.drawable.book,
                 R.drawable.lock,
                 R.drawable.security,
         };
@@ -88,9 +92,13 @@ public class Account extends Fragment implements View.OnClickListener {
                         parent.functionHelper.popupDialog("Tentang Aplikasi", "Aplikasi PenaMob (pembelajaran tuntas berbantukan mobile) versi 1.0.0", false);
                         break;
                     case 2:
-                        parent.functionHelper.startIntent(ChangePassword.class, false, null);
+                        String url = "https://view.officeapps.live.com/op/embed.aspx?src=https://api.nitalestari.com/manualbookstudent.doc";
+                        parent.functionHelper.openUrlToBrowser(url);
                         break;
                     case 3:
+                        parent.functionHelper.startIntent(ChangePassword.class, false, null);
+                        break;
+                    case 4:
                         parent.functionHelper.openUrlToBrowser("https://app.nitalestari.com/#/term-condition");
                         break;
                 }
