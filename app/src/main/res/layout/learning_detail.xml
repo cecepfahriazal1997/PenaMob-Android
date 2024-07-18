@@ -71,6 +71,23 @@
                 android:descendantFocusability="blocksDescendants"
                 android:visibility="gone"/>
 
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/action"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="8dp"
+                app:fb_defaultColor="@color/primary"
+                app:fb_focusColor="@color/primaryDark"
+                app:fb_radius="8dp"
+                app:fb_text="Download File"
+                app:fb_textColor="@color/white"
+                app:fb_textSize="14dp"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/description_text"
                 android:layout_width="wrap_content"

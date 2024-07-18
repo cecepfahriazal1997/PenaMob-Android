@@ -1,5 +1,8 @@
 package com.nita.penamob.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -7,13 +10,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.nita.penamob.R;
 import com.nita.penamob.api.Service;
+import com.nita.penamob.helper.FileDownloader;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
+
+import mehdi.sakout.fancybuttons.FancyButton;
 
 public class LearningDetail extends BaseController implements View.OnClickListener {
     private String type = "";
@@ -25,11 +35,16 @@ public class LearningDetail extends BaseController implements View.OnClickListen
     private RelativeLayout reference, btnAssignment, contentScore;
     private String urlReference;
     private boolean onPause = false;
+    private FancyButton download;
+    private static final int REQUEST_CODE = 100;
+    private FileDownloader fileDownloader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.learning_detail);
+
+        fileDownloader = new FileDownloader(this);
 
         findView();
         init();
@@ -51,6 +66,7 @@ public class LearningDetail extends BaseController implements View.OnClickListen
         contentScore = findViewById(R.id.content_score);
         score = findViewById(R.id.score);
         notification = findViewById(R.id.content_notification);
+        download = findViewById(R.id.download);
     }
 
     private void init() {
@@ -109,6 +125,32 @@ public class LearningDetail extends BaseController implements View.OnClickListen
                                 descriptionText.setVisibility(View.GONE);
 
                                 helper.formatIsText(pDialog, description, detail.getString("attachment"), "url");
+                                if (!detail.getString("attachment").isEmpty()) {
+                                    download.setVisibility(View.VISIBLE);
+                                    download.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                        != PackageManager.PERMISSION_GRANTED) {
+                                                    ActivityCompat.requestPermissions(LearningDetail.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+                                                } else {
+                                                    try {
+                                                        fileDownloader.startDownload(detail.getString("attachment_file"));
+                                                    } catch (JSONException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+                                                }
+                                            } else {
+                                                try {
+                                                    fileDownloader.startDownload(detail.getString("attachment_file"));
+                                                } catch (JSONException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
                             }
 
 //                            IF TYPE LESSON IS ASSIGNMENT
