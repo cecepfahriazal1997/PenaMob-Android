@@ -157,10 +157,10 @@ public class Assignment extends BaseController implements View.OnClickListener {
             case R.id.choose_file:
                 if (!fileChoosed) {
                     helper.openFileChooser(this, 1, permissionImage);
-                    fileChoosed = true;
                 } else {
                     resetFile();
                 }
+                fileChoosed = !fileChoosed;
                 break;
         }
     }
